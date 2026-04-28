@@ -1,0 +1,44 @@
+Step 1 — Analyze Current Workspace Structure
+Look at what's already in the solution (projects, layers, existing code).
+
+Step 2 — Design the Architecture (3 layers)
+•	API Layer — Controllers, DTOs, HTTP transport (appsettings.Development.json)
+•	Business Logic Layer — Services, domain logic (Class1.cs or similar)
+•	Data Layer — Repository interfaces + MongoDB implementation (Class1.cs)
+
+Step 3 — Define Domain Entities
+•	TaskList — Id, Name (1–255 chars), OwnerId, CreatedAt
+•	TaskListShare (relationship) — TaskListId, UserId
+
+Step 4 — Implement the Data Layer
+•	Repository interfaces (e.g. ITaskListRepository)
+•	MongoDB implementation using the official MongoDB driver
+
+Step 5 — Implement the Business Logic Layer
+•	TaskListService with methods:
+•	CreateTaskList
+•	UpdateTaskList
+•	DeleteTaskList (owner only)
+•	GetTaskListById
+•	GetTaskLists (filtered by user, sorted newest→oldest, paginated)
+•	AddShare / GetShares / RemoveShare
+
+Step 6 — Implement the API Layer (Controllers + DTOs)
+•	TaskListsController with all required endpoints
+•	Pass userId via request header or query parameter (no auth system needed)
+•	Input validation (name length 1–255)
+Step 7 — Apply Access Rules
+•	List endpoint: only lists where user is owner OR has a share relationship
+•	Get/Update/AddShare/GetShares/RemoveShare: owner or shared user
+•	Delete: owner only
+Step 8 — Dependency Injection + Configuration
+•	Wire up repositories, services, MongoDB connection in Program.cs
+Step 9 — Implement TypeScript API Provider
+•	Define typed interfaces matching the API DTOs
+•	Build an axios-based (or fetch-based) provider with:
+•	Request configuration (base URL, headers with userId)
+•	Typed methods for each endpoint
+•	Error handling
+Step 10 — Test & Validate
+•	Manual testing via Swagger / HTTP client
+•	Verify all access rules work correctly
