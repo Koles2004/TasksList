@@ -3,4 +3,5 @@
   <Project Path="TasksList.Domain/TasksList.Domain.csproj" />
   <Project Path="TasksList.Application/TasksList.Application.csproj" />
   <Project Path="TasksList.Infrastructure/TasksList.Infrastructure.csproj" />
+  <Project Path="TasksList.Tests/TasksList.Tests.csproj" />
 </Solution>
